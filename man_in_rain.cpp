@@ -8,7 +8,7 @@
 
 #define ScreenHeight getmaxy()
 
-#define GroundY ScreenHeight*0.75
+#define GroundY ScreenHeight*0.80
 
 
 
@@ -92,14 +92,15 @@ int main()
 
     /* Fill colours */
 
-
-  while(!kbhit())
+ int reachtime = 55;
+  while(!kbhit() && reachtime>=0)
 
   {
+      reachtime--;
 setcolor(WHITE);
-    rectangle(350,200,450,359);
-    rectangle(450,200,620,359);
-    rectangle(380,240,420,359);
+    rectangle(350,200,450,383);
+    rectangle(450,200,620,383);
+    rectangle(380,240,420,383);
 
     line(400,120,350,200);
     line(400,120,450,200);
@@ -131,6 +132,9 @@ setcolor(WHITE);
    x=(x+7)%ScreenWidth;
 
 }
+
+
+outtextxy(170,200, "You Reached The House Safe. Congratulations !");
 
   getch();
 
