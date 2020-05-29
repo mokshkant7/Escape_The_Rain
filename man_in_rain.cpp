@@ -90,13 +90,33 @@ int main()
 
   initgraph(&gd,&gm,"C:\\TurboC3\\BGI");
 
+    /* Fill colours */
+
+
   while(!kbhit())
 
   {
+setcolor(WHITE);
+    rectangle(350,200,450,359);
+    rectangle(450,200,620,359);
+    rectangle(380,240,420,359);
 
+    line(400,120,350,200);
+    line(400,120,450,200);
+    line(400,120,570,120);
+    line(570,120,620,200);
+
+    setfillstyle(SOLID_FILL, DARKGRAY);
+    //floodfill(152, 182, WHITE);
+    //floodfill(252, 182, WHITE);
+    setfillstyle(SLASH_FILL, BLUE);
+    //floodfill(182, 252, WHITE);
+    //setfillstyle(HATCH_FILL, BLUE);
+    //floodfill(200, 105, WHITE);
+    //floodfill(210, 105, WHITE);
    //Draw Ground
 
-   line(0,GroundY,ScreenWidth,GroundY);
+   line(0,GroundY,ScreenWidth-270,GroundY);
 
    Rain(x);
 
@@ -104,11 +124,11 @@ int main()
 
    DrawManAndUmbrella(x,ldisp);
 
-   delay(75);
+   delay(50);
 
    cleardevice();
 
-   x=(x+2)%ScreenWidth;
+   x=(x+7)%ScreenWidth;
 
 }
 
