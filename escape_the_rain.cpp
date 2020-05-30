@@ -1,22 +1,25 @@
 #include<stdio.h>
-
 #include<graphics.h>
 
 
-
 #define ScreenWidth getmaxx()
-
 #define ScreenHeight getmaxy()
-
 #define GroundY ScreenHeight*0.80
-
 
 
 int ldisp=0;
 
+void DrawUmbrella(int x,int ldisp)
+{
+setfillstyle(SOLID_FILL, BLUE);
+setcolor(BLUE);
+pieslice(x+20,GroundY-120,0,180,40);
+setcolor(BLUE);
+line(x+20,GroundY-120,x+20,GroundY-70);
+}
 
 
-void DrawManAndUmbrella(int x,int ldisp)
+void DrawMan(int x,int ldisp)
 
 {
 
@@ -41,12 +44,6 @@ line(x+10,GroundY-55,x+20,GroundY-70);
 line(x,GroundY-30,x+ldisp,GroundY);
 
 line(x,GroundY-30,x-ldisp,GroundY);
-
-//umbrella
-
-pieslice(x+20,GroundY-120,0,180,40);
-
-line(x+20,GroundY-120,x+20,GroundY-70);
 
 }
 
@@ -80,6 +77,28 @@ for(i=0;i<400;i++)
 
 }
 
+
+
+void tree(int t,int q)
+{
+int r=15;
+r=15;
+
+rectangle(150+t,410+q,170+t,140+q);
+
+
+setcolor(GREEN);
+setfillstyle(SOLID_FILL, GREEN);
+floodfill(151+t,342+q,2);
+fillellipse(142+t,147+q,r+50,r+50);
+fillellipse(160+t,130+q,r+50,r+50);
+fillellipse(175+t,140+q,r+50,r+50);
+fillellipse(180+t,150+q,r+50,r+50);
+delay(0);
+}
+
+
+
 int main()
 
 {
@@ -92,12 +111,17 @@ int main()
 
     /* Fill colours */
 
- int reachtime = 55;
+
+ int reachtime = 57;
   while(!kbhit() && reachtime>=0)
 
   {
-      reachtime--;
-setcolor(WHITE);
+
+    reachtime--;
+    setcolor(GREEN);
+    tree(-28, -28);
+
+    setcolor(WHITE);
     rectangle(350,200,450,383);
     rectangle(450,200,620,383);
     rectangle(380,240,420,383);
@@ -107,25 +131,16 @@ setcolor(WHITE);
     line(400,120,570,120);
     line(570,120,620,200);
 
-    setfillstyle(SOLID_FILL, DARKGRAY);
-    //floodfill(152, 182, WHITE);
-    //floodfill(252, 182, WHITE);
-    setfillstyle(SLASH_FILL, BLUE);
-    //floodfill(182, 252, WHITE);
-    //setfillstyle(HATCH_FILL, BLUE);
-    //floodfill(200, 105, WHITE);
-    //floodfill(210, 105, WHITE);
-   //Draw Ground
-
    line(0,GroundY,ScreenWidth-270,GroundY);
 
    Rain(x);
 
    ldisp=(ldisp+2)%20;
 
-   DrawManAndUmbrella(x,ldisp);
+   DrawMan(x,ldisp);
+   DrawUmbrella(x,ldisp);
 
-   delay(50);
+   delay(75);
 
    cleardevice();
 
@@ -133,12 +148,11 @@ setcolor(WHITE);
 
 }
 
-
+setcolor(WHITE);
 outtextxy(170,200, "You Reached The House Safe. Congratulations !");
 
   getch();
 
 }
-
 
 
