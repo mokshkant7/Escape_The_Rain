@@ -78,13 +78,24 @@ for(i=0;i<400;i++)
 }
 
 
+void DrawManinHouse(int x, int ldisp)
+{
+    circle(x,GroundY-90,10);
+    line(x,GroundY-80,x,GroundY-30);
+    line(x,GroundY-70,x+10,GroundY-60);
+    line(x,GroundY-70,x-10,GroundY-60);
+    line(x,GroundY-30,x+ldisp,GroundY);
+    line(x,GroundY-30,x-ldisp,GroundY);
+
+}
+
 
 void tree(int t,int q)
 {
 int r=15;
 r=15;
 
-rectangle(150+t,410+q,170+t,140+q);
+rectangle(150+t,410+q,170+t,200+q);
 
 
 setcolor(GREEN);
@@ -149,8 +160,32 @@ int main()
 }
 
 setcolor(WHITE);
-outtextxy(170,200, "You Reached The House Safe. Congratulations !");
+x=0;
+int sitTime = 65 ;
+while(!kbhit() && sitTime>0){
 
+    rectangle(440,350,470,383);
+    rectangle(460,310,490,383);
+    line(490,345,470,351);
+    line(460,345,440,351);
+
+    line(0,GroundY,ScreenWidth,GroundY);
+
+    ldisp=(ldisp+2)%20;
+
+    DrawManinHouse(x,ldisp);
+
+    delay(75);
+
+    cleardevice();
+    x=(x+7)%ScreenWidth;
+
+    sitTime--;
+}
+
+setcolor(WHITE);
+outtextxy(150,180, "You Reached The House Safe. Congratulations !");
+outtextxy(220,200, "You can now sit and Relax.");
   getch();
 
 }
