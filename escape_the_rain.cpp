@@ -14,7 +14,7 @@ void DrawUmbrella(int x,int ldisp)
 setfillstyle(SOLID_FILL, BLUE);
 setcolor(BLUE);
 pieslice(x+20,GroundY-120,0,180,40);
-setcolor(BLUE);
+setcolor(WHITE);
 line(x+20,GroundY-120,x+20,GroundY-70);
 }
 
@@ -26,7 +26,8 @@ void DrawMan(int x,int ldisp)
 //head
 
 circle(x,GroundY-90,10);
-
+setfillstyle(SOLID_FILL,WHITE);
+setcolor(WHITE);
 line(x,GroundY-80,x,GroundY-30);
 
 //hand
@@ -82,12 +83,22 @@ void DrawManinHouse(int x, int ldisp)
 {
     circle(x,GroundY-90,10);
     line(x,GroundY-80,x,GroundY-30);
-    line(x,GroundY-70,x+10,GroundY-60);
-    line(x,GroundY-70,x-10,GroundY-60);
+    line(x,GroundY-70,x+10,GroundY-60+x%5);
+    line(x,GroundY-70,x-10,GroundY-60+x%5);
     line(x,GroundY-30,x+ldisp,GroundY);
     line(x,GroundY-30,x-ldisp,GroundY);
 
 }
+void DrawManSit(int x)
+{
+    circle(x,GroundY-80,10);
+    line(x,GroundY-70,x,GroundY-40);
+    line(x,GroundY-60,x+10,GroundY-50);
+    line(x,GroundY-60,x-10,GroundY-50);
+    //line(x,)
+
+}
+
 
 
 void tree(int t,int q)
@@ -108,6 +119,55 @@ fillellipse(180+t,150+q,r+50,r+50);
 delay(0);
 }
 
+void DrawChair(){
+ rectangle(440,350,470,383);
+ line(460,340,490,340);
+ line(460,340,440,350);
+ line(490,340,470,350);
+ line(490,340,490,GroundY);
+}
+
+void DrawMusicPlayer(int music_on,int frame_count){
+ rectangle(200,GroundY-50,260,GroundY);
+ if(music_on==0){
+ circle(220,GroundY-30,15);
+ circle(220,GroundY-30,7);
+ rectangle(245,GroundY-40,255,GroundY-35);
+ }
+ else if(music_on == 1 && frame_count%3==0){
+    circle(220,GroundY-30,12);
+    circle(220,GroundY-30,10);
+    rectangle(243,GroundY-25,256,GroundY-23);
+    rectangle(243,GroundY-23,250,GroundY-21);
+    rectangle(243,GroundY-21,252,GroundY-20);
+    rectangle(243,GroundY-25,257,GroundY-23);
+    rectangle(243,GroundY-21,245,GroundY-19);
+    rectangle(243,GroundY-19,248,GroundY-17);
+    rectangle(243,GroundY-17,250,GroundY-15);
+    rectangle(243,GroundY-15,247,GroundY-13);
+    rectangle(243,GroundY-13,251,GroundY-11);
+
+ }
+ else if(music_on==1 && frame_count%3!=0){
+    circle(220,GroundY-30,15);
+    circle(220,GroundY-30,7);
+    rectangle(243,GroundY-19,255,GroundY-17);
+    rectangle(243,GroundY-25,251,GroundY-23);
+    rectangle(243,GroundY-25,250,GroundY-23);
+    rectangle(243,GroundY-21,252,GroundY-19);
+    rectangle(243,GroundY-23,245,GroundY-21);
+    rectangle(243,GroundY-17,248,GroundY-15);
+    rectangle(243,GroundY-15,245,GroundY-13);
+    rectangle(243,GroundY-13,258,GroundY-11);
+    rectangle(243,GroundY-21,250,GroundY-20);
+ }
+ circle(245,GroundY-30,1);
+ circle(255,GroundY-30,1);
+ circle(250,GroundY-30,1);
+ rectangle(245,GroundY-40,255,GroundY-35);
+
+
+}
 
 
 int main()
@@ -123,11 +183,20 @@ int main()
     /* Fill colours */
 
 
- int reachtime = 57;
-  while(!kbhit() && reachtime>=0)
-
+ int reachtime = 100;
+  while(x<380)
   {
+    char c[3] ;
+    itoa(reachtime,c,2);
+    outtextxy(10,10,"Get to the safe house ASAP to avoid getting hit by lightning");
+    if(reachtime == 0){
+     cleardevice();
+     outtextxy(100,100,"Lightning struck you! you died!");
+     reachtime = 100;
+     x=0;
+     delay(2000);
 
+    }
     reachtime--;
     setcolor(GREEN);
     tree(-28, -28);
@@ -146,7 +215,11 @@ int main()
 
    Rain(x);
 
-   ldisp=(ldisp+2)%20;
+   if(GetAsyncKeyState(VK_RIGHT)){
+        ldisp=(ldisp+10)%20;
+        x=(x+7)%ScreenWidth;
+        }
+
 
    DrawMan(x,ldisp);
    DrawUmbrella(x,ldisp);
@@ -155,39 +228,69 @@ int main()
 
    cleardevice();
 
-   x=(x+7)%ScreenWidth;
+
 
 }
 
 setcolor(WHITE);
 x=0;
-int sitTime = 65 ;
-while(!kbhit() && sitTime>0){
-
-    rectangle(440,350,470,383);
-    rectangle(460,310,490,383);
-    line(490,345,470,351);
-    line(460,345,440,351);
-
+int music_set=0;//to check if music system is on
+int frame = 0;
+int sit = 0;//to check if the character is sitting or not
+while(1){
+    if(GetAsyncKeyState('Q')&0x8000){
+        break;
+    }
+    DrawChair();
+    frame++;
     line(0,GroundY,ScreenWidth,GroundY);
+    if(GetAsyncKeyState(VK_RIGHT)&& sit==0){
+        ldisp=(ldisp+10)%20;
+        x=(x+7)%ScreenWidth;
+        }
+    if(GetAsyncKeyState(VK_LEFT)and sit==0){
+        ldisp=(ldisp-10)%20;
+        x=(x-7)%ScreenWidth;
+        }
 
-    ldisp=(ldisp+2)%20;
-
-    DrawManinHouse(x,ldisp);
-
+//    DrawManinHouse(x,ldisp);
+    DrawMusicPlayer(music_set,frame);
+    //music option
+    if(x>200 && x<250 && music_set==0){
+        DrawManinHouse(x,ldisp);
+        outtextxy(150,180, "Do you want to listen to music.press (P) to play");
+        if(GetAsyncKeyState('P')&0x8000){
+            music_set=1;
+            frame = 0;
+        }
+    }
+    else if(x>200 && x<250 && music_set==1){
+        DrawManinHouse(x,ldisp);
+        outtextxy(150,190, "Playing XYZ track rn");
+        outtextxy(150,170, "Press [S] to stop music");
+        if(GetAsyncKeyState('S')&0x8000)
+            music_set = 0;
+    }
+    //sit option
+    else if(x>440 && x<490 && sit ==1){
+        x = 455;
+        DrawManSit(x);
+        outtextxy(400,190, "Press [G] to sit on the pouf");
+        if(GetAsyncKeyState('G')&0x8000)
+            sit = 0;
+    }
+    else if(x>440 && x<490 && sit ==0){
+        DrawManinHouse(x,ldisp);
+        outtextxy(400,190, "Press [S] to sit on the pouf");
+        if(GetAsyncKeyState('S')&0x8000)
+            sit = 1;
+    }
+    else{
+        DrawManinHouse(x,ldisp);
+    }
     delay(75);
-
     cleardevice();
-    x=(x+7)%ScreenWidth;
-
-    sitTime--;
-}
-
-setcolor(WHITE);
-outtextxy(150,180, "You Reached The House Safe. Congratulations !");
-outtextxy(220,200, "You can now sit and Relax.");
-  getch();
-
+    }
 }
 
 
