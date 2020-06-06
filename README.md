@@ -1,6 +1,6 @@
-# Man_In_Rain
+# Escape_The_Rain
 
-In this C++ program a man tries to escape the Rain by running into his house. Colour is also there inside some objects.
+In this interactive C++ program a man tries to escape the Rain by running into his house. Colour is also there inside some objects. You can use keys to performa various tasks.
 
 
 To Run:
