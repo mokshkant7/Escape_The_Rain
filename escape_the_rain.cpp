@@ -275,7 +275,7 @@ while(1){
     else if(x>440 && x<490 && sit ==1){
         x = 455;
         DrawManSit(x);
-        outtextxy(400,190, "Press [G] to sit on the pouf");
+        outtextxy(400,190, "Press [G] to Get Up");
         if(GetAsyncKeyState('G')&0x8000)
             sit = 0;
     }
@@ -292,5 +292,3 @@ while(1){
     cleardevice();
     }
 }
-
-
