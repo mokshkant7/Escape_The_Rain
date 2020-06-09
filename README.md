@@ -14,4 +14,4 @@ https://www.geeksforgeeks.org/include-graphics-h-codeblocks/
 Graphics.h library works on a Windows Pc and not on Mac, so in case of a Mac this project won't work. You could try something similar on OpenGL which works on both windows and Mac however the code for that is different. 
 
  
-![Escape_The_Rain Demo](https://github.com/mokshkant7/Escape_The_Rain/blob/master/Escape_The_Rain%20Demo.mp4)
+![Escape_The_Rain Demo](https://github.com/mokshkant7/Escape_The_Rain/blob/master/Escape_The_Rain%20Demo.gif)
