@@ -3,7 +3,7 @@
 In this interactive C++ program a man tries to escape the Rain by running into his house so that he can relax and listen to some music. Colour is also there inside some objects. You can use keys to perform various tasks.
 
 
-To Run:
+###To Run:
 
 Make sure you have setup, the graphics.h library in your laptop.
 
